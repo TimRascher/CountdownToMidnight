@@ -4,6 +4,7 @@ require("dotenv").config()
 // INCLUDES
 const express = require("express")
 const controls = require("./src/controls")
+const models = require("./src/models")
 
 // CONSTANTS
 const port = process.env.port || 3000
@@ -17,12 +18,7 @@ app.use(express.json())
 // ROUTES
 app.get("/", async (req, res) => {
     try {
-        await controls.database.add({
-            id: "f60887ab-3362-44cc-b810-af22df473b7a",
-            name: "Test Clock 2",
-            category: "Test Category",
-            modifiedOn: new Date()
-        })
+        await controls.database.add(new models.clock("Class Clock", "Class Category"))
     } catch (error) {
         console.log(error)
     }

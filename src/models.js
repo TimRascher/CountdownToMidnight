@@ -1,0 +1,1 @@
+exports.clock = require("./models/clock").clock
