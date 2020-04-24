@@ -1,19 +1,15 @@
 const fileSystem = require("fs")
+const databaseDir = process.env.DATABASE_DIR
+const databasePath = databaseDir + process.env.DATABASE_FILE
+const exsists = fileSystem.existsSync(databasePath)
+if (fileSystem.existsSync(databaseDir) === false) {
+    fileSystem.mkdirSync(databaseDir)
+}
 
-exports.ifNeeded = (database, databaseDir, databasePath) => {
+exports.ifNeeded = (database, queries) => {
     database.serialize(() => {
-        if (fileSystem.existsSync(databaseDir) === false) {
-            fileSystem.mkdirSync(databaseDir)
-        }
-        if (fileSystem.existsSync(databasePath) === false) {
-            database.run(`
-                CREATE TABLE Clocks (
-                    id TEXT PRIMARY KEY,
-                    name TEXT NOT NULL,
-                    category TEXT NOT NULL,
-                    modifiedOn TEXT NOT NULL
-                );
-            `)
+        if (exsists === false) {
+            database.run(queries.create.clocksTable)
         }
     })
 }

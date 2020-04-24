@@ -16,7 +16,6 @@ app.use(express.json())
 
 // ROUTES
 app.get("/", (req, res) => {
-    controls.database.add({name: "Test", category: "Test"})
     res.send("Hello World!")
 })
 
