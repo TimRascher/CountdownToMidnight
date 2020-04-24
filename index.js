@@ -17,7 +17,7 @@ const app = express()
 // ROUTES
 app.get("/", middleware.json, routes.all)
 app.get("/clocks", middleware.json, routes.all)
-app.post("/clock", express.json(), middleware.json, routes.add)
+app.post("/clock", middleware.checkKey, express.json(), middleware.json, routes.add)
 
 // SERVER
 app.listen(port, () => { console.log("Countdown is listening on port " + port) })
