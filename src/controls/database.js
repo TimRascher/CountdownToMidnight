@@ -22,5 +22,5 @@ exports.add = async (record) => {
 }
 
 exports.all = async () => {
-    return await all(database)
+    return await select.all(database)
 }

@@ -9,7 +9,7 @@ exports.insert = (record, database) => {
                 record.id,
                 record.name,
                 record.category,
-                utilities.dateFormatter(record.modifiedOn),
+                record.modifiedOn,
                 (error) => {
                     if (error) { reject(error) }
                     else { resolve() }

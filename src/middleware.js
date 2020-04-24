@@ -1,0 +1,1 @@
+exports.json = require("./middleware/json").json

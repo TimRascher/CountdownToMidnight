@@ -4,7 +4,7 @@ exports.create = Object.freeze({
             id TEXT PRIMARY KEY,
             name TEXT NOT NULL,
             category TEXT NOT NULL,
-            modifiedOn TEXT NOT NULL
+            modifiedOn REAL NOT NULL
         )
     `
 })

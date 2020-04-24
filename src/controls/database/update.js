@@ -8,7 +8,7 @@ exports.update = (record, database) => {
                 queries.update,
                 record.name,
                 record.category,
-                utilities.dateFormatter(record.modifiedOn),
+                record.modifiedOn,
                 record.id,
                 (error) => {
                     if (error) { reject(error) }
