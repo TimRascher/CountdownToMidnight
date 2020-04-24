@@ -1,0 +1,29 @@
+{
+  "name": "countdowntomidnight",
+  "version": "1.0.0",
+  "description": "A web app to track Countdown Clocks in the Sprawl RPG.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TimRascher/CountdownToMidnight.git"
+  },
+  "keywords": [
+    "RPG",
+    "Sprawl",
+    "NodeJS",
+    "Javascript"
+  ],
+  "author": "Timothy Rascher",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TimRascher/CountdownToMidnight/issues"
+  },
+  "homepage": "https://github.com/TimRascher/CountdownToMidnight#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "sqlite3": "^4.1.1"
+  }
+}
