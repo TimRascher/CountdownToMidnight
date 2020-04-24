@@ -1,15 +1,15 @@
-const utilities = require("../../utilities")
 const queries = require("./queries")
+const utilities = require("../../utilities")
 
-exports.insert = (record, database) => {
+exports.update = (record, database) => {
     return new Promise((resolve, reject) => {
         database.serialize(() => {
             database.run(
-                queries.insert,
-                record.id,
+                queries.update,
                 record.name,
                 record.category,
                 utilities.dateFormatter(record.modifiedOn),
+                record.id,
                 (error) => {
                     if (error) { reject(error) }
                     else { resolve() }

@@ -15,8 +15,18 @@ const app = express()
 app.use(express.json())
 
 // ROUTES
-app.get("/", (req, res) => {
-    res.send("Hello World!")
+app.get("/", async (req, res) => {
+    try {
+        await controls.database.add({
+            id: "f60887ab-3362-44cc-b810-af22df473b7a",
+            name: "Test Clock 2",
+            category: "Test Category",
+            modifiedOn: new Date()
+        })
+    } catch (error) {
+        console.log(error)
+    }
+    res.send("Hello World")
 })
 
 // SERVER
