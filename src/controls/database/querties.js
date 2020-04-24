@@ -1,0 +1,1 @@
+exports.insert = "INSERT INTO Clocks (id, name, category, modifiedOn) VALUES (?, ?, ?, ?)"
