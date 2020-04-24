@@ -24,6 +24,10 @@ app.get("/", async (req, res) => {
     }
     res.send("Hello World")
 })
+app.get("/clocks", async (req, res) => {
+    res.header("content-type", "application/json")
+    res.send(await controls.database.all())
+})
 
 // SERVER
 app.listen(port, () => { console.log("Countdown is listening on port " + port) })

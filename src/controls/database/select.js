@@ -10,3 +10,13 @@ exports.count = (id, database) => {
         })
     })
 }
+exports.all = (database) => {
+    return new Promise((resolve, reject) => {
+        database.serialize(() => {
+            database.all(queries.select.all, (error, rows) => {
+                if (error) { reject(error); return }
+                resolve(JSON.stringify(rows))
+            })
+        })
+    })
+}

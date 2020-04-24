@@ -20,3 +20,7 @@ exports.add = async (record) => {
         await update(record, database)
     }
 }
+
+exports.all = async () => {
+    return await all(database)
+}
