@@ -11,6 +11,7 @@ exports.validator = {
         }
         clock.modifiedOn = new Date()
         var valid = true
+        valid = valid && clock.value >= 0 && clock.value <= 6
         let check = (value) => { valid = valid && value.length >= 3 && value.length <= 50 }
         check(clock.name)
         check(clock.category)

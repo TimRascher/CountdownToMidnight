@@ -4,11 +4,12 @@ exports.create = Object.freeze({
             id TEXT PRIMARY KEY,
             name TEXT NOT NULL,
             category TEXT NOT NULL,
+            value INT NOT NULL,
             modifiedOn REAL NOT NULL
         )
     `
 })
-exports.insert = "INSERT INTO Clocks (id, name, category, modifiedOn) VALUES (?, ?, ?, ?)"
+exports.insert = "INSERT INTO Clocks (id, name, category, value, modifiedOn) VALUES (?, ?, ?, ?, ?)"
 exports.select = Object.freeze({
     idCount: `
         SELECT
@@ -20,7 +21,7 @@ exports.select = Object.freeze({
     `,
     all: `
         SELECT
-            id, name, category, modifiedOn
+            id, name, category, value, modifiedOn
         FROM
             Clocks
     `
@@ -31,6 +32,7 @@ exports.update = `
     SET
         name = ?,
         category = ?,
+        value = ?,
         modifiedOn = ?
     WHERE
         id = ?

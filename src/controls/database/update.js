@@ -8,6 +8,7 @@ exports.update = (record, database) => {
                 queries.update,
                 record.name,
                 record.category,
+                record.value,
                 record.modifiedOn,
                 record.id,
                 (error) => {

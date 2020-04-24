@@ -9,6 +9,7 @@ exports.insert = (record, database) => {
                 record.id,
                 record.name,
                 record.category,
+                record.value,
                 record.modifiedOn,
                 (error) => {
                     if (error) { reject(error) }
