@@ -15,7 +15,7 @@ const app = express()
 // MIDDLEWARE
 
 // ROUTES
-app.get("/", middleware.json, routes.all)
+app.use("/", express.static("public"))
 app.get("/clocks", middleware.json, routes.all)
 app.post("/clock", middleware.checkKey, express.json(), middleware.json, routes.add)
 
