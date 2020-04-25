@@ -24,6 +24,12 @@ exports.select = Object.freeze({
             id, name, category, value, modifiedOn
         FROM
             Clocks
+    `,
+    categories: `
+        SELECT DISTINCT
+            category
+        FROM
+            Clocks
     `
 })
 exports.update = `

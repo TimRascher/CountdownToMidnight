@@ -15,7 +15,17 @@ exports.all = (database) => {
         database.serialize(() => {
             database.all(queries.select.all, (error, rows) => {
                 if (error) { reject(error); return }
-                resolve(JSON.stringify(rows))
+                resolve(rows)
+            })
+        })
+    })
+}
+exports.catigories = (database) => {
+    return new Promise((resolve, reject) => {
+        database.serialize(() => {
+            database.all(queries.select.categories, (error, rows) => {
+                if (error) { reject(error); return }
+                resolve(rows)
             })
         })
     })

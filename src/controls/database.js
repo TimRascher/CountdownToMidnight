@@ -24,3 +24,6 @@ exports.add = async (record) => {
 exports.all = async () => {
     return await select.all(database)
 }
+exports.categories = async () => {
+    return await select.catigories(database)
+}
