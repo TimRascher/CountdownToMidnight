@@ -27,3 +27,6 @@ exports.all = async () => {
 exports.categories = async () => {
     return await select.catigories(database)
 }
+exports.byCategory = async (category) => {
+    return await select.byCategory(database, category)
+}

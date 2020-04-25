@@ -1,6 +1,8 @@
 import { Menu } from "./modules/categories.js"
+import { Clocks } from "./modules/clocks.js"
 
 var menu
+var clocks
 
 const loop = () => {
     console.log("Loop Run")
@@ -9,6 +11,7 @@ const loop = () => {
 
 $(() => {
     menu = new Menu()
+    clocks = new Clocks()
     menu.addOnBind((id) => {
         console.log(id)
     })

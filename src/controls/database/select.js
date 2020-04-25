@@ -30,3 +30,13 @@ exports.catigories = (database) => {
         })
     })
 }
+exports.byCategory = (database, category) => {
+    return new Promise((resolve, reject) => {
+        database.serialize(() => {
+            database.all(queries.select.allByCategory, category, (error, rows) => {
+                if (error) { reject(error); return }
+                resolve(rows)
+            })
+        })
+    })
+}

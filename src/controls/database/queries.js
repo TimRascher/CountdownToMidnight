@@ -30,6 +30,14 @@ exports.select = Object.freeze({
             category
         FROM
             Clocks
+    `,
+    allByCategory: `
+        SELECT
+            id, name, value, modifiedOn
+        FROM
+            Clocks
+        WHERE
+            category = ?
     `
 })
 exports.update = `
