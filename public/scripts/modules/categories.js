@@ -1,9 +1,11 @@
+var menuTemplate
+const menuContainer = $("#navbarContainer")
 const loadTemplate = () => {
     var template = $("#navbarTemplate")
     template.removeAttr("id")
     template.removeClass("hidden")
     template.remove()
-    return template
+    menuTemplate = template
 }
 const loadCategories = () => {
     return new Promise((resolve, reject) => {
@@ -14,59 +16,96 @@ const loadCategories = () => {
         })
     })
 }
-const loadMenuItems = (categories, template) => {
-    let menuItems = []
+const getKeys = (categories) => {
+    let categoriesDict = {}
     for (const category of categories) {
-        let menuItem = template.clone()
-        menuItem.attr("id", "menu-" + category)
-        menuItem.text(category)
-        menuItems.push(menuItem)
+        let key = "menu-" + category.replace(/\s+/g, "")
+        categoriesDict[key] = {key: key, name: category, addStatus: 0}
     }
-    return menuItems
+    return categoriesDict
 }
-const removeAllItems = (menuContainer) => {
-    for (const menuItem of menuContainer.children()) {
-        menuItem.remove()
+const createItem = (key) => {
+    let item = menuTemplate.clone()
+    item.attr("id", key.key)
+    item.text(key.name)
+    return item
+}
+const transferItems = (newKeys, oldKeys) => {
+    var updatedKeys = {}
+    let newValues = Object.values(newKeys)
+    for (var key of newValues) {
+        if (oldKeys !== undefined && key.key in oldKeys) {
+            let oldKey = oldKeys[key.key]
+            key.item = oldKey.item
+            key.item.unbind()
+        } else {
+            key.item = createItem(key)
+            key.addStatus = 1
+        }
+        updatedKeys[key.key] = key
     }
-}
-const checkForActive = (active, menuItems) => {
-    var newActive
-    for (const menuItem of menuItems) {
-        if (menuItem.attr("id") === active) {
-            newActive = active
-            menuItem.addClass("active")
-            break
+    if (oldKeys !== undefined) {
+        let oldValues = Object.values(oldKeys)
+        for (var key of oldValues) {
+            if ((key.key in newKeys) === false) {
+                key.addStatus = 2
+                updatedKeys[key.key] = key
+            }
         }
     }
-    if (newActive === undefined) {
-        newActive = menuItems[0].attr("id")
-        menuItems[0].addClass("active")
-    }
-    return newActive
+    return updatedKeys
 }
-const bindNewElements = (clicked) => {
+const updateMenu = (categories) => {
+    let values = Object.values(categories)
+    for (var i = 0; i < values.length; i++) {
+        const category = values[i]
+        switch (category.addStatus) {
+            case 1:
+                if (i === 0) {
+                    menuContainer.append(category.item)
+                } else {
+                    const lastItem = values[i-1]
+                    let id = "#" + lastItem.key
+                    category.item.insertAfter(id)
+                }
+                break
+            case 2:
+                category.item.remove()
+                break
+            default: break
+        }
+    }
+}
+const bindNewElements = (menu) => {
     $(".nav-item").click(function(event) {
         event.preventDefault()
-        if (clicked !== undefined) {
-            let id = $(this).attr("id")
-            clicked(id)
+        $("#" + menu.active).removeClass("active")
+        let item = $(this)
+        let id = item.attr("id")
+        item.addClass("active")
+        menu.active = id
+        if (menu.clicked !== undefined) {
+            menu.clicked(menu.categories[id].name)
         }
     })
 }
 
 export class Menu {
     constructor() {
-        this.template = loadTemplate()
+        loadTemplate()
         this.active = undefined
-        this.menuContainer = $("#navbarContainer")
     }
     async load() {
-        removeAllItems(this.menuContainer)
-        this.categories = await loadCategories()
-        this.menuItems = loadMenuItems(this.categories, this.template)
-        this.active = checkForActive(this.active, this.menuItems)
-        this.menuContainer.append(this.menuItems)
-        bindNewElements(this.clicked)
+        let categories = await loadCategories()
+        let newKeys = getKeys(categories)
+        this.categories = transferItems(newKeys, this.categories)
+        updateMenu(this.categories)
+        if (this.active === undefined) {
+            let item = Object.values(this.categories)[0].item
+            item.addClass("active")
+            this.active = item.attr("id")
+        }
+        bindNewElements(this)
     }
     addOnBind(clicked) {
         this.clicked = clicked
