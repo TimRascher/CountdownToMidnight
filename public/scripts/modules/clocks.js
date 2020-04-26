@@ -22,16 +22,29 @@ const compileData = (incomingClocks, exsistingClocks) => {
     return { ids: { new: newIds, removed: removedIds, current: currentIds },
     clocks: { incoming: incomingClocks, exsiting: exsistingClocks || {}, final: {} } }
 }
+const image = (value) => {
+    return "/images/CountdownClock" + value + ".svg"
+}
 const createNewClocks = (compiledData) => {
     var compiledData = compiledData
     for (const id of compiledData.ids.new) {
         let clock = compiledData.clocks.incoming.filter(x => x.id === id)[0]
         let item = clockTemplate.clone()
         item.attr("id", id)
-        item.find("img").attr("src", "/images/CountdownClock" + clock.value + ".svg")
+        item.find("img").attr("src", image(clock.value))
         item.find("h3").text(clock.name)
         content.append(item)
         compiledData.clocks.final[id] = {id: id, clock: clock, item: item}
+    }
+    return compiledData
+}
+const updateExsistingClocks = (compiledData) => {
+    var compiledData = compiledData
+    for (const id of compiledData.ids.current) {
+        let object = compiledData.clocks.exsiting[id]
+        let clock = compiledData.clocks.incoming.filter(x => x.id === id)[0]
+        object.item.find("img").attr("src", image(clock.value))
+        object.item.find("h3").text(clock.name)
     }
     return compiledData
 }
@@ -47,13 +60,13 @@ const removeOldClocks = (compiledData) => {
     return final
 }
 
-
 export class Clocks {
     constructor() {}
     async load(category) {
         let clocks = await load(category)
         var compiledData = compileData(clocks, this.clocks)
         compiledData = createNewClocks(compiledData)
+        compiledData = updateExsistingClocks(compiledData)
         this.clocks = removeOldClocks(compiledData)
     }
     clear() {
