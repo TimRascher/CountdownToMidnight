@@ -10,15 +10,10 @@ const middleware = require("./src/middleware")
 const port = process.env.port || 3000
 const app = express()
 
-// VARIABLES
-
-// MIDDLEWARE
-
 // ROUTES
 app.use("/", express.static("public"))
 app.get("/clocks", middleware.json, routes.all)
-app.get("/clocks/:category", middleware.json, (req, res) => {
-})
+app.get("/clocks/:category", middleware.json, routes.byCategory)
 app.get("/categories", middleware.json, routes.categories)
 app.post("/clock", middleware.checkKey, express.json(), middleware.json, routes.add)
 

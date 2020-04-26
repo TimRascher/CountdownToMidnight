@@ -1,4 +1,5 @@
 const clockTemplate = $("#clockTemplate")
+const content = $("#clockTemplate")
 clockTemplate.remove()
 clockTemplate.removeAttr("id")
 clockTemplate.removeClass("hidden")
