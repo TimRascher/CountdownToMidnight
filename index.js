@@ -16,6 +16,15 @@ app.get("/clocks", middleware.json, routes.all)
 app.get("/clocks/:category", middleware.json, routes.byCategory)
 app.get("/categories", middleware.json, routes.categories)
 app.post("/clock", middleware.checkKey, express.json(), middleware.json, routes.add)
+app.get("/database", middleware.checkKey, routes.databaseDownloads)
+
+
+app.get("/clock/delete/all", middleware.checkKey, async (req, res) => {
+
+})
+app.get("/clock/delete/:id", middleware.checkKey, async (req, res) => {
+
+})
 
 // SERVER
 app.listen(port, () => { console.log("Countdown is listening on port " + port) })
