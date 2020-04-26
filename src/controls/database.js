@@ -4,6 +4,7 @@ const create = require("./database/create")
 const insert = require("./database/insert").insert
 const select = require("./database/select")
 const update = require("./database/update").update
+const dbDelete = require("./database/delete").delete
 
 // CONSTANTS
 const databasePath = process.env.DATABASE_DIR + process.env.DATABASE_FILE
@@ -29,4 +30,14 @@ exports.categories = async () => {
 }
 exports.byCategory = async (category) => {
     return await select.byCategory(database, category)
+}
+
+const queries = require("./database/queries")
+exports.delete = {
+    all: async () => {
+        await dbDelete.all(database)
+    },
+    byId: (id) => {
+
+    }
 }

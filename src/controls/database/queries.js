@@ -10,6 +10,17 @@ exports.create = Object.freeze({
     `
 })
 exports.insert = "INSERT INTO Clocks (id, name, category, value, modifiedOn) VALUES (?, ?, ?, ?, ?)"
+exports.delete = {
+    all: `
+        DELETE FROM Clocks
+    `,
+    byId: `
+        DELETE FROM
+            Clocks
+        WHERE
+            id = ?
+    `
+}
 exports.select = Object.freeze({
     idCount: `
         SELECT
