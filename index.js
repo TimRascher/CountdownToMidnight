@@ -16,22 +16,9 @@ app.get("/clocks", middleware.json, routes.all)
 app.get("/categories", middleware.json, routes.categories)
 app.post("/clock", middleware.checkKey, express.json(), middleware.json, routes.add)
 app.get("/database", middleware.checkKey, routes.databaseDownloads)
-
-const statuses = require("./src/enums").statuses
-const controls = require("./src/controls")
-app.get("/clocks/delete", middleware.checkKey, async (req, res) => {
-    try {
-        await controls.database.delete.all()
-        res.send(statuses.success)
-    } catch (error) {
-        console.log(error)
-        res.send(statuses.error)
-    }
-})
+app.get("/clocks/delete", middleware.checkKey, routes.deleteAll)
 app.get("/clocks/:category", middleware.json, routes.byCategory)
-app.get("/clock/delete/:id", middleware.checkKey, async (req, res) => {
-    console.log(req.params)
-})
+app.get("/clock/delete/:id", middleware.checkKey, routes.deleteById)
 
 // SERVER
 app.listen(port, () => { console.log("Countdown is listening on port " + port) })

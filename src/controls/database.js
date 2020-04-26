@@ -31,13 +31,11 @@ exports.categories = async () => {
 exports.byCategory = async (category) => {
     return await select.byCategory(database, category)
 }
-
-const queries = require("./database/queries")
 exports.delete = {
     all: async () => {
         await dbDelete.all(database)
     },
-    byId: (id) => {
-
+    byId: async (id) => {
+        await dbDelete.byId(id, database)
     }
 }

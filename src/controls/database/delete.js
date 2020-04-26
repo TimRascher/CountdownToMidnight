@@ -9,5 +9,15 @@ exports.delete = {
                 })
             })
         })
+    }, 
+    byId: (id, database) => {
+        return new Promise((resolve, reject) => {
+            database.serialize(() => {
+                database.run(queries.delete.byId, id, (error) => {
+                    if (error) { reject(error) }
+                    else { resolve() }
+                })
+            })
+        })
     }
 }
