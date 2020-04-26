@@ -4,16 +4,21 @@ import { Clocks } from "./modules/clocks.js"
 var menu
 var clocks
 
-const loop = () => {
+const loop = async () => {
     console.log("Loop Run")
-    menu.load()
+    await menu.load()
+    if (menu.category !== undefined) {
+        await clocks.load(menu.category)
+    }
 }
 
 $(() => {
     menu = new Menu()
     clocks = new Clocks()
-    menu.addOnBind((id) => {
+    menu.addOnBind(async (id) => {
         console.log(id)
+        clocks.clear()
+        await clocks.load(menu.category)
     })
     loop()
     setInterval(() => {

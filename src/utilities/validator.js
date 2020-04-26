@@ -1,4 +1,4 @@
-const UUID = require("uuid")
+const UUID = require("uuid").v4
 
 exports.validator = {
     uuid: (uuid) => {

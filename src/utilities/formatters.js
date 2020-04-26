@@ -17,5 +17,5 @@ exports.categories = (categories) => {
     return categoriesArray.sort()
 }
 exports.clocks = (clocks) => {
-    return clocks.sort((lhs, rhs) => { lhs.name > rhs.name })
+    return clocks.sort((lhs, rhs) => { lhs.name < rhs.name })
 }

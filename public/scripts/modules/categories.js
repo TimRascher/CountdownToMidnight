@@ -95,6 +95,12 @@ export class Menu {
         loadTemplate()
         this.active = undefined
     }
+    get category() {
+        if (this.active !== undefined) {
+            return this.categories[this.active].name
+        }
+        return undefined
+    }
     async load() {
         let categories = await loadCategories()
         let newKeys = getKeys(categories)

@@ -38,6 +38,8 @@ exports.select = Object.freeze({
             Clocks
         WHERE
             category = ?
+        ORDER BY
+            name
     `
 })
 exports.update = `
