@@ -2,8 +2,12 @@ import { Menu } from "./modules/categories.js"
 import { Clocks } from "./modules/clocks.js"
 import { ElementManager } from "./modules/elementManager.js"
 
-var menu
+const menu = new Menu(onClick)
 var clocks
+
+function onClick(action) {
+    console.log(action)
+}
 
 const loop = async () => {
     console.log("Loop Run")
@@ -25,10 +29,5 @@ $(async () => {
     // setInterval(() => {
     //     loop()
     // }, 10000)
-    let elementManager = new ElementManager("navbarTemplate", "navbarContainer", (item, element) => {
-        element.text(item.category)
-    }, (objects) => {
-        Object.values(objects)[0].element.addClass("active")
-    })
-    await elementManager.load("/categories")
+    await menu.load()
 })

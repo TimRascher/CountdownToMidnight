@@ -40,17 +40,15 @@ function addNew(collection, template, container, mapNew) {
 }
 
 export class ElementManager {
-    constructor(templateId, containerId, mapNew, afterLoad) {
+    constructor(templateId, containerId, mapNew) {
         this.template = $("#" + templateId)
         readyTemplate(this.template)
         this.container = $("#" + containerId)
         this.mapNew = mapNew
-        this.afterLoad = afterLoad
     }
     async load(url) {
         const data = await loadData(url)
         const collection = removeOld(data, this.objects)
         this.objects = addNew(collection, this.template, this.container, this.mapNew)
-        this.afterLoad(this.objects)
     }
 }
