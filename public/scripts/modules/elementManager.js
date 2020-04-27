@@ -30,11 +30,16 @@ function addNew(collection, template, container, mapNew) {
     let exsistingObjects = collection.exsistingObjects
     for (const id of collection.importedIds) {
         const item = collection.data.filter(x => x.id === id)[0]
-        let element = template.clone()
-        element.attr("id", id)
+        let element
+        if (Object.keys(exsistingObjects).includes(id)) {
+            element = exsistingObjects[id].element
+        } else {
+            element = template.clone()
+            element.attr("id", id)
+            container.append(element)
+            exsistingObjects[id] = { id: id, item: item, element: element }
+        }
         mapNew(item, element)
-        container.append(element)
-        exsistingObjects[id] = { id: id, item: item, element: element }
     }
     return exsistingObjects
 }

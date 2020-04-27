@@ -16,16 +16,8 @@ const loop = async () => {
 }
 
 $(async () => {
-    // menu = new Menu()
-    // clocks = new Clocks()
-    // menu.addOnBind(async (id) => {
-    //     console.log(id)
-    //     clocks.clear()
-    //     await clocks.load(menu.category)
-    // })
-    // loop()
-    // setInterval(() => {
-    //     loop()
-    // }, 10000)
-    await menu.load()
+    await loop()
+    setInterval(() => {
+        loop()
+    }, 10000)
 })
