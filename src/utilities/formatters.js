@@ -12,7 +12,11 @@ exports.date = (date) => {
 exports.categories = (categories) => {
     var categoriesArray = []
     for (const category of categories) {
-        categoriesArray.push(category.category)
+        let item = {
+            id: "menu-" + category.category.replace(/\s+/g, ""),
+            category: category.category
+        }
+        categoriesArray.push(item)
     }
     return categoriesArray.sort()
 }
