@@ -20,14 +20,20 @@ export class Menu {
     constructor(onClick) {
         this.manager = new ElementManager(templateName, containerName, mapNew)
         this.active = undefined
-        this.onClick = function(event) {
+        this.onClick = (event) => {
             event.preventDefault()
-            let element = $(this)
-            $("#" + this.active).removeClass("active")
-            element.addClass("active")
-            this.active = element.attr("id")
-            onClick(this.active)
+            if (this.active !== undefined) {
+                let oldElement = this.manager.objects[this.active].element
+                oldElement.removeClass("active")
+            }
+            let newElement = $(event.currentTarget)
+            this.active = newElement.attr("id")
+            newElement.addClass("active")
+            onClick(this.category)
         }
+    }
+    get category() {
+        return this.manager.objects[this.active].item.category
     }
     async load() {
         await this.manager.load("/categories")

@@ -3,18 +3,16 @@ import { Clocks } from "./modules/clocks.js"
 import { ElementManager } from "./modules/elementManager.js"
 
 const menu = new Menu(onClick)
-var clocks
+const clocks = new Clocks()
 
-function onClick(action) {
-    console.log(action)
+async function onClick(category) {
+    await clocks.load(category)
 }
 
 const loop = async () => {
     console.log("Loop Run")
     await menu.load()
-    if (menu.category !== undefined) {
-        await clocks.load(menu.category)
-    }
+    await clocks.load(menu.category)
 }
 
 $(async () => {
