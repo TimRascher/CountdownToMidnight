@@ -57,13 +57,18 @@ function bindEditingButton(editor) {
     $(elements.editingButtons).removeClass("hidden")
     $(elements.editingButtons + " .btn.save").click(async (event) => {
         event.preventDefault()
-        const items = Object.values(editor.clocks.manager.objects).map(x => x.item)
-        for (let item of items) {
-            if (item.hasChanges) {
+        const objects = Object.values(editor.clocks.manager.objects)
+        for (let object of objects) {
+            let item = object.item
+            if (object.hasChanges) {
                 item.category = editor.menu.category
-                delete item.hasChanges
+                delete object.hasChanges
                 delete item.modifiedOn
+                delete object.original
                 await client.post(endPoints.clock, editor.key, JSON.stringify(item))
+            } else if (object.shouldDelete) {
+                delete editor.clocks.manager.objects[item.id]
+                // Delete Call Here
             }
         }
     })
@@ -102,6 +107,7 @@ export class Editor {
         $(elements.header).off()
         unbindAdjustButtons()
         unbindEditingButtons()
+        this.clocks.revert()
     }
     bindMCKeyButton() {
         $("#mcKey").click(async (event) => {
