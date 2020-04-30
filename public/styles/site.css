@@ -8,3 +8,6 @@
 .grey :hover {
     color: darkgray;
 }
+.adjust {
+    font-size: 4rem;
+}

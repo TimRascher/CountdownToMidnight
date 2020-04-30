@@ -1,13 +1,15 @@
-import { Menu } from "./modules/categories.js"
+import { Menu } from "./modules/menu.js"
 import { Clocks } from "./modules/clocks.js"
 import { client } from "./modules/client.js"
+import { Editor, mcModes } from "./modules/editor.js"
 
 const menu = new Menu(onClick)
 const clocks = new Clocks()
-let appKey = ""
+const editor = new Editor(menu, clocks)
 
 async function onClick(category) {
     await clocks.load(category)
+    editor.bind()
 }
 
 const loop = async () => {
@@ -16,20 +18,10 @@ const loop = async () => {
 }
 
 $(async () => {
+    editor.bindMCKeyButton()
     await loop()
-    setInterval(() => {
-        if (appKey !== "") { return }
-        loop()
+    setInterval(async () => {
+        if (editor.mcMode === mcModes.on) { return }
+        await loop()
     }, 10000)
-    $("#mcKey").click(async (event) => {
-        event.preventDefault()
-        appKey = prompt("Please enter MC Key.")
-        let response = await client.get("/check", appKey)
-        if (response.status == "Error") { appKey = ""; return }
-        alert("Success")
-    })
-    $(".card .card-header").click((event) => {
-        let element = $(event.currentTarget).find("H3")
-        element.text(element.text() + " Blamo")
-    })
 })

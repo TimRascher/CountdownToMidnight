@@ -34,14 +34,24 @@
       </div>
     </nav>
     <br />
-    <div id="content" class="container">
-      <div id="clockTemplate" class="card hidden">
-        <div class="card-header">
-          <h3>Clock Name</h3>
+    <div class="container">
+      <div id="content">
+        <div id="clockTemplate" class="card hidden">
+          <div class="card-header">
+            <h3>Clock Name</h3>
+          </div>
+          <div class="card-body row">
+            <button type="button" class="btn btn-primary minus col col-1 adjust hidden">-</button>
+            <img class="main col" src="images/CountdownClock0.svg" />
+            <button type="button" class="btn btn-primary plus col col-1 adjust hidden">+</button>
+          </div>
         </div>
-        <div class="card-body">
-          <img src="images/CountdownClock0.svg" />
-        </div>
+      </div>
+      <br />
+      <div id="editingButtons" class="row hidden">
+        <button type="button" class="btn col-2 close">Close</button>
+        <div class="col"></div>
+        <button type="button" class="btn col-2 btn-primary save">Save</button>
       </div>
     </div>
   </body>

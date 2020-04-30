@@ -1,4 +1,5 @@
 import { ElementManager } from "./elementManager.js"
+import { endPoints } from "./client.js"
 
 const templateName = "navbarTemplate"
 const containerName = "navbarContainer"
@@ -36,7 +37,7 @@ export class Menu {
         return this.manager.objects[this.active].item.category
     }
     async load() {
-        await this.manager.load("/categories")
+        await this.manager.load(endPoints.categories)
         afterLoad(this.active, this.manager.objects, this.onClick)
     }
 }
