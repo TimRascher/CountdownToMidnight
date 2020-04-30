@@ -81,6 +81,14 @@ function bindEditingButton(editor) {
         event.preventDefault()
         await editor.has("")
     })
+    $(elements.editingButtons + " .btn.new").click(async (event) => {
+        event.preventDefault()
+        let name = prompt("Name of Clock?")
+        let category = prompt("Category of Clock?", editor.menu.category)
+        let clock = {name: name, category: category, value: 0}
+        await client.post(endPoints.clock, editor.key, JSON.stringify(clock))
+        $("#"+editor.menu.active).click()
+    })
 }
 function unbindEditingButtons() {
     $(elements.editingButtons).addClass("hidden")
