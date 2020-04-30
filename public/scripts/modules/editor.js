@@ -48,6 +48,11 @@ function bindAdjustButtons(clocks) {
         else if (!isPlus && value > 0) { value-- }
         clocks.change(id, { value: value })
     })
+    $(elements.adjustButtons + ".delete").click((event) => {
+        event.preventDefault()
+        const id = $(event.currentTarget).parent().parent().parent().attr("id")
+        clocks.delete(id)
+    })
 }
 function unbindAdjustButtons() {
     $(elements.adjustButtonsGroup).addClass("hidden")
@@ -68,7 +73,7 @@ function bindEditingButton(editor) {
                 await client.post(endPoints.clock, editor.key, JSON.stringify(item))
             } else if (object.shouldDelete) {
                 delete editor.clocks.manager.objects[item.id]
-                // Delete Call Here
+                await client.get(endPoints.delete(item.id), editor.key)
             }
         }
     })
@@ -104,10 +109,10 @@ export class Editor {
         bindEditingButton(this)
     }
     unBind() {
+        this.clocks.revert()
         $(elements.header).off()
         unbindAdjustButtons()
         unbindEditingButtons()
-        this.clocks.revert()
     }
     bindMCKeyButton() {
         $("#mcKey").click(async (event) => {

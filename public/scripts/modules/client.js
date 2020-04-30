@@ -42,5 +42,6 @@ export const endPoints = {
     clocks: (category) => { return "/clocks/" + category },
     categories: "/categories",
     check: "/check",
-    clock: "/clock"
+    clock: "/clock",
+    delete: (id) => { return "/clock/delete/" + id }
 }
