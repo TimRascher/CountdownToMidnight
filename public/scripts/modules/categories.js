@@ -7,7 +7,7 @@ function mapNew(item, element) {
     element.text(item.category)
 }
 function afterLoad(active, objects, onClick) {
-    let elements = $(".nav-item")
+    let elements = $("#navbarContainer .nav-item")
     elements.off()
     elements.click(onClick)
     if (active === undefined || !Object.keys(objects).includes(active)) {

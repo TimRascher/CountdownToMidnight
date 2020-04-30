@@ -1,3 +1,10 @@
 .hidden {
     display: none;
 }
+
+.grey {
+    color: gray;
+}
+.grey :hover {
+    color: darkgray;
+}

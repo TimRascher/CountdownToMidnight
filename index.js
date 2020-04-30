@@ -19,6 +19,9 @@ app.get("/database", middleware.checkKey, routes.databaseDownloads)
 app.get("/clocks/delete", middleware.checkKey, routes.deleteAll)
 app.get("/clocks/:category", middleware.json, routes.byCategory)
 app.get("/clock/delete/:id", middleware.checkKey, routes.deleteById)
+app.get("/check", middleware.checkKey, (req, res) => {
+    res.send(require("./src/enums").statuses.success)
+})
 
 // SERVER
 app.listen(port, () => { console.log("Countdown is listening on port " + port) })

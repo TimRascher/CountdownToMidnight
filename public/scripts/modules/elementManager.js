@@ -1,16 +1,9 @@
+import { client } from "./client.js"
+
 function readyTemplate(template) {
     template.removeAttr("id")
     template.removeClass("hidden")
     template.remove()
-}
-function loadData(url) {
-    return new Promise((resolve, reject) => {
-        $.getJSON(url).done((data) => {
-            resolve(data)
-        }).fail((error) => {
-            reject(error)
-        })
-    })
 }
 function removeOld(data, exsistingObjects) {
     const importedIds = data.map(x => x.id)
@@ -52,7 +45,7 @@ export class ElementManager {
         this.mapNew = mapNew
     }
     async load(url) {
-        const data = await loadData(url)
+        const data = await client.get(url)
         const collection = removeOld(data, this.objects)
         this.objects = addNew(collection, this.template, this.container, this.mapNew)
     }
