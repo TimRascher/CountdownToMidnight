@@ -2,7 +2,8 @@ import { client, endPoints } from "./client.js"
 
 const elements = {
     header: ".card .card-header",
-    bodyButtons: ".card .card-body .btn.adjust",
+    adjustButtonsGroup: ".adjustButtons",
+    adjustButtons: ".adjustButtons .btn",
     image: "img.main",
     editingButtons: "#editingButtons"
 }
@@ -37,11 +38,11 @@ function bindAllHeaders(clocks) {
     $(elements.header).click(headerBind)
 }
 function bindAdjustButtons(clocks) {
-    $(elements.bodyButtons).removeClass("hidden")
-    $(elements.bodyButtons).click((event) => {
+    $(elements.adjustButtonsGroup).removeClass("hidden")
+    $(elements.adjustButtons + ".adjust").click((event) => {
         event.preventDefault()
         const isPlus = $(event.currentTarget).hasClass("plus")
-        const id = $(event.currentTarget).parent().parent().attr("id")
+        const id = $(event.currentTarget).parent().parent().parent().attr("id")
         let value = clocks.valueOf(id)
         if (isPlus && value != 6) { value++ }
         else if (!isPlus && value > 0) { value-- }
@@ -49,8 +50,8 @@ function bindAdjustButtons(clocks) {
     })
 }
 function unbindAdjustButtons() {
-    $(elements.bodyButtons).addClass("hidden")
-    $(elements.bodyButtons).off()
+    $(elements.adjustButtonsGroup).addClass("hidden")
+    $(elements.adjustButtons).off()
 }
 function bindEditingButton(editor) {
     $(elements.editingButtons).removeClass("hidden")
