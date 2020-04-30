@@ -40,10 +40,17 @@
           <div class="card-header">
             <h3>Clock Name</h3>
           </div>
-          <div class="card-body row">
-            <button type="button" class="btn btn-primary minus col col-1 adjust hidden">-</button>
-            <img class="main col" src="images/CountdownClock0.svg" />
-            <button type="button" class="btn btn-primary plus col col-1 adjust hidden">+</button>
+          <div class="card-body">
+            <div class="row">
+              <img class="main col" src="images/CountdownClock0.svg" />
+            </div>
+            <div class="row adjustButtons">
+              <button type="button" class="btn btn-danger delete col col-1">Delete</button>
+              <div class="col"></div>
+              <button type="button" class="btn btn-primary minus adjust col col-1">-</button>
+              <div class="col-1"></div>
+              <button type="button" class="btn btn-primary plus adjust col col-1">+</button>
+            </div>
           </div>
         </div>
       </div>
